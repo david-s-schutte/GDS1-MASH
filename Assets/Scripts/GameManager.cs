@@ -11,10 +11,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text helicopterPatients;
     [SerializeField] private Text hospitalPatients;
     [SerializeField] private Text endText;
+    public Button graphicSwitch;
     
     //External References
     public GameObject[] soldiers;
     public PlayerController player;
+    public Sprite atariButtonSprite;
 
     //Sets the helicopterPatients text to match the player's patientCapacity
     public void SetHelicopterPatientsText(int patientCount){
@@ -60,5 +62,23 @@ public class GameManager : MonoBehaviour
                 player.GetRigidBody().freezeRotation = false;
             }
         }
+    }
+
+    public void AnimateButton()
+    {
+        if (graphicSwitch.GetComponent<Animator>())
+        {
+            graphicSwitch.GetComponent<Animator>().enabled = true;
+        }
+        
+    }
+
+    public void StopAnimateButton()
+    {
+        if (graphicSwitch.GetComponent<Animator>())
+        {
+            graphicSwitch.GetComponent<Animator>().enabled = false;
+        }
+        graphicSwitch.image.sprite = atariButtonSprite;
     }
 }
