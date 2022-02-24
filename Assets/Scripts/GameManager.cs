@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,5 +18,12 @@ public class GameManager : MonoBehaviour
         patientsRescued += patientCount;
         Debug.Log("Soldiers in Hospital: " + patientsRescued);
         hospitalPatients.text = "Soldiers in Hospital: " + patientsRescued;
+    }
+
+    void Update()
+    {
+        if(Input.GetKeyDown("r")){
+            SceneManager.LoadScene(0);
+        }
     }
 }
