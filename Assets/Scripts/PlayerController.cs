@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public int patientCapacity = 0;
     private int patientLimit = 3;
     GameObject[] patients;
+    private bool playerIsDead = false;
 
     //External References
     private Rigidbody2D rb;
@@ -21,24 +22,35 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey("left")){
-            transform.Translate(new Vector2(-1,0) * flySpeed * Time.deltaTime);
-            Debug.Log("left");
-        }
+        //If the player isn't dead
+        if(!playerIsDead){
+            //Move them left if they press the left key
+            if(Input.GetKey("left")){
+                transform.Translate(new Vector2(-1,0) * flySpeed * Time.deltaTime);
+                Debug.Log("left");
+            }
+            //Move them right if they press the right key
+            if(Input.GetKey("right")){
+                transform.Translate(new Vector2(1,0) * flySpeed * Time.deltaTime);
+                Debug.Log("right");
+            }
+            //Move them down if they press the down key
+            if(Input.GetKey("down")){
+                transform.Translate(new Vector2(0,-1) * flySpeed * Time.deltaTime);
+                Debug.Log("down");
+            }
+            //Move them up if they press the up key
+            if(Input.GetKey("up")){
+                transform.Translate(new Vector2(0,1) * flySpeed * Time.deltaTime);
+                Debug.Log("up");
+            }
+        }  
+    }
 
-        if(Input.GetKey("right")){
-            transform.Translate(new Vector2(1,0) * flySpeed * Time.deltaTime);
-            Debug.Log("right");
-        }
-
-        if(Input.GetKey("down")){
-            transform.Translate(new Vector2(0,-1) * flySpeed * Time.deltaTime);
-            Debug.Log("down");
-        }
-
-        if(Input.GetKey("up")){
-            transform.Translate(new Vector2(0,1) * flySpeed * Time.deltaTime);
-            Debug.Log("up");
+    void OnCollisionEnter2D(Collision2D other){
+        if(other.gameObject.tag == "Tree"){
+            playerIsDead = true;
+            Debug.Log("u r die");
         }
     }
 }
