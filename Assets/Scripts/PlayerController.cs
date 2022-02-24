@@ -48,9 +48,16 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D other){
+        //If the player collides with a tree they die
         if(other.gameObject.tag == "Tree"){
             playerIsDead = true;
             Debug.Log("u r die");
+        }
+        //If the player collides with a soldier they need to be picked up
+        if(other.gameObject.tag == "Soldier" && patientCapacity <= patientLimit){
+            patientCapacity++;
+            Destroy(other.gameObject);
+            Debug.Log("patientCapacity = " + patientCapacity);
         }
     }
 }
