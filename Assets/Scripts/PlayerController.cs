@@ -13,10 +13,13 @@ public class PlayerController : MonoBehaviour
 
     //External References
     private Rigidbody2D rb;
+    [SerializeField] private GameManager gameManager;
 
     void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+        gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
+        Debug.Log("GameManager = " + gameManager);
     }
 
     // Update is called once per frame
@@ -57,12 +60,13 @@ public class PlayerController : MonoBehaviour
         else if(other.gameObject.tag == "Soldier" && patientCapacity < patientLimit){
             patientCapacity++;
             Destroy(other.gameObject);
-            Debug.Log("patientCapacity = " + patientCapacity);
+            gameManager.SetHelicopterPatientsText(patientCapacity);
         }
         //IF the player collides with a hospital reset the patient capacity
         else if(other.gameObject.tag == "Finish"){
-            Debug.Log("Returning " + patientCapacity + " patient(s) to the hospital");
+            gameManager.SetHospitalPatientsText(patientCapacity);
             patientCapacity = 0;
+            gameManager.SetHelicopterPatientsText(patientCapacity);
         }
     }
 }
