@@ -15,11 +15,13 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     [SerializeField] private GameManager gameManager;
     public AudioSource pickupSFX;
+    private SpriteRenderer renderer;
 
     void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
+        renderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -30,10 +32,12 @@ public class PlayerController : MonoBehaviour
             //Move them left if they press the left key
             if(Input.GetKey("left")){
                 transform.Translate(new Vector2(-1,0) * flySpeed * Time.deltaTime);
+                renderer.flipX = true;
             }
             //Move them right if they press the right key
             if(Input.GetKey("right")){
                 transform.Translate(new Vector2(1,0) * flySpeed * Time.deltaTime);
+                renderer.flipX = false;
             }
             //Move them down if they press the down key
             if(Input.GetKey("down")){
@@ -51,8 +55,11 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.tag == "Tree"){
             playerIsDead = true;
         }
+    }
+
+    void OnTriggerEnter2D(Collider2D other){
         //If the player collides with a soldier they need to be picked up
-        else if(other.gameObject.tag == "Soldier" && patientCapacity < patientLimit){
+        if(other.gameObject.tag == "Soldier" && patientCapacity < patientLimit){
             patientCapacity++;
             Destroy(other.gameObject);
             pickupSFX.Play();
@@ -64,5 +71,9 @@ public class PlayerController : MonoBehaviour
             patientCapacity = 0;
             gameManager.SetHelicopterPatientsText(patientCapacity);
         }
+    }
+
+    public Rigidbody2D GetRigidBody(){
+        return rb;
     }
 }

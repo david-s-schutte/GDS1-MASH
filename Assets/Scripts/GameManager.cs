@@ -56,6 +56,8 @@ public class GameManager : MonoBehaviour
             if(!endText.enabled){
                 endText.enabled = true;
                 endText.text = "Game Over";
+                player.GetRigidBody().gravityScale = 1.0f;
+                player.GetRigidBody().freezeRotation = false;
             }
         }
     }
