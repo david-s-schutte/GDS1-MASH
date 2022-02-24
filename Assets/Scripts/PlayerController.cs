@@ -54,10 +54,15 @@ public class PlayerController : MonoBehaviour
             Debug.Log("u r die");
         }
         //If the player collides with a soldier they need to be picked up
-        if(other.gameObject.tag == "Soldier" && patientCapacity <= patientLimit){
+        else if(other.gameObject.tag == "Soldier" && patientCapacity < patientLimit){
             patientCapacity++;
             Destroy(other.gameObject);
             Debug.Log("patientCapacity = " + patientCapacity);
+        }
+        //IF the player collides with a hospital reset the patient capacity
+        else if(other.gameObject.tag == "Finish"){
+            Debug.Log("Returning " + patientCapacity + " patient(s) to the hospital");
+            patientCapacity = 0;
         }
     }
 }
