@@ -41,7 +41,7 @@ Tilemap:
   m_GameObject: {fileID: 2713177327296540074}
   m_Enabled: 1
   m_Tiles:
-  - first: {x: -5, y: 1, z: 0}
+  - first: {x: -26, y: 18, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 0
@@ -83,8 +83,8 @@ Tilemap:
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Origin: {x: -5, y: 0, z: 0}
-  m_Size: {x: 5, y: 2, z: 1}
+  m_Origin: {x: -26, y: 0, z: 0}
+  m_Size: {x: 26, y: 19, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -196,7 +196,7 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
---- !u!114 &3592071355320472012
+--- !u!114 &3716759364522705572
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -40,7 +40,6 @@ public class PlayerController : MonoBehaviour
                                 * flySpeed * Time.deltaTime);
             //Update the player's animation based on input
             renderer.flipX = horizontalDirection < 0;
-            Debug.Log(horizontalDirection);
             animator.SetFloat("flySpeed", horizontalDirection);
         }  
     }
