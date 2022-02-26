@@ -14,7 +14,10 @@ public class PlayerController : MonoBehaviour
     //External References
     private Rigidbody2D rb;
     [SerializeField] private GameManager gameManager;
-    public AudioSource pickupSFX;
+    public AudioSource SFX;
+    public AudioSource helicopterNoise;
+    public AudioClip dropoffClip;
+    public AudioClip pickupClip;
     public AudioClip crashClip;
     private SpriteRenderer renderer;
     private Animator animator;
@@ -40,32 +43,56 @@ public class PlayerController : MonoBehaviour
                                 * flySpeed * Time.deltaTime);
             //Update the player's animation based on input
             renderer.flipX = horizontalDirection < 0;
-            animator.SetFloat("flySpeed", horizontalDirection);
-        }  
+        }
+        else{
+            animator.enabled = false;
+            helicopterNoise.enabled = false;
+        }
     }
 
     void OnCollisionEnter2D(Collision2D other){
         //If the player collides with a tree they die
         if(other.gameObject.tag == "Tree"){
             playerIsDead = true;
-            pickupSFX.clip = crashClip;
-            pickupSFX.Play();
+            SFX.clip = crashClip;
+            SFX.Play();
         }
     }
 
     void OnTriggerEnter2D(Collider2D other){
-        //If the player collides with a soldier they need to be picked up
-        if(other.gameObject.tag == "Soldier" && patientCapacity < patientLimit && !playerIsDead){
-            patientCapacity++;
-            Destroy(other.gameObject);
-            pickupSFX.Play();
-            gameManager.SetHelicopterPatientsText(patientCapacity);
+        if (!playerIsDead)
+        {
+            //If the player collides with a soldier they need to be picked up
+            if (other.gameObject.tag == "Soldier" && patientCapacity < patientLimit && !playerIsDead)
+            {
+                patientCapacity++;
+                Destroy(other.gameObject);
+                SFX.clip = pickupClip;
+                SFX.Play();
+                gameManager.SetHelicopterPatientsText(patientCapacity);
+            }
+            //IF the player collides with a hospital reset the patient capacity
+            else if (other.gameObject.tag == "Finish")
+            {
+                if(patientCapacity > 0)
+                {
+                    SFX.clip = dropoffClip;
+                    SFX.Play();
+                    gameManager.SetHospitalPatientsText(patientCapacity);
+                    patientCapacity = 0;
+                    gameManager.SetHelicopterPatientsText(patientCapacity);
+                }
+            }
         }
-        //IF the player collides with a hospital reset the patient capacity
-        else if(other.gameObject.tag == "Finish"){
-            gameManager.SetHospitalPatientsText(patientCapacity);
-            patientCapacity = 0;
-            gameManager.SetHelicopterPatientsText(patientCapacity);
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (!playerIsDead){
+            //IF the player collides with a hospital reset the patient capacity
+            if (collision.gameObject.tag == "Finish"){
+                SFX.clip = pickupClip;
+            }
         }
     }
 

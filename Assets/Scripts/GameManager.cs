@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
     {
         //Allows the reset function
         if(Input.GetKeyDown("r")){
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
         }
 
         /*Win condition - if patients rescued is equal to the amount of soldiers in the game:
@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
         else if(player.playerIsDead){
             if(!endText.enabled){
                 endText.enabled = true;
-                endText.text = "Game Over";
+                endText.text = "GAME OVER";
                 player.GetRigidBody().gravityScale = 1.0f;
                 player.GetRigidBody().freezeRotation = false;
             }
