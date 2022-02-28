@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     //External References
     private Rigidbody2D rb;
     [SerializeField] private GameManager gameManager;
-    public AudioSource SFX;
+    public AudioSource sfx;
     public AudioSource helicopterNoise;
     public AudioClip dropoffClip;
     public AudioClip pickupClip;
@@ -22,12 +22,25 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer renderer;
     private Animator animator;
 
+    //Overall Variables
+    public GameObject gameSettings;
+
     void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
         renderer = gameObject.GetComponent<SpriteRenderer>();
         animator = gameObject.GetComponent<Animator>();
+        gameSettings = GameObject.FindGameObjectWithTag("GameSettings");
+    }
+
+    private void Start()
+    {
+        if (gameSettings)
+        {
+            sfx.enabled = gameSettings.GetComponent<GameSettings>().GetSFXSetting();
+            helicopterNoise.enabled = gameSettings.GetComponent<GameSettings>().GetSFXSetting();
+        }
     }
 
     // Update is called once per frame
@@ -54,8 +67,8 @@ public class PlayerController : MonoBehaviour
         //If the player collides with a tree they die
         if(other.gameObject.tag == "Tree"){
             playerIsDead = true;
-            SFX.clip = crashClip;
-            SFX.Play();
+            sfx.clip = crashClip;
+            sfx.Play();
         }
     }
 
@@ -67,8 +80,8 @@ public class PlayerController : MonoBehaviour
             {
                 patientCapacity++;
                 Destroy(other.gameObject);
-                SFX.clip = pickupClip;
-                SFX.Play();
+                sfx.clip = pickupClip;
+                sfx.Play();
                 gameManager.SetHelicopterPatientsText(patientCapacity);
             }
             //IF the player collides with a hospital reset the patient capacity
@@ -76,8 +89,8 @@ public class PlayerController : MonoBehaviour
             {
                 if(patientCapacity > 0)
                 {
-                    SFX.clip = dropoffClip;
-                    SFX.Play();
+                    sfx.clip = dropoffClip;
+                    sfx.Play();
                     gameManager.SetHospitalPatientsText(patientCapacity);
                     patientCapacity = 0;
                     gameManager.SetHelicopterPatientsText(patientCapacity);
@@ -91,7 +104,7 @@ public class PlayerController : MonoBehaviour
         if (!playerIsDead){
             //IF the player collides with a hospital reset the patient capacity
             if (collision.gameObject.tag == "Finish"){
-                SFX.clip = pickupClip;
+                sfx.clip = pickupClip;
             }
         }
     }

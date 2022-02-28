@@ -105,11 +105,12 @@ MonoBehaviour:
   patientCapacity: 0
   playerIsDead: 0
   gameManager: {fileID: 0}
-  SFX: {fileID: 407805910478788246}
+  sfx: {fileID: 407805910478788246}
   helicopterNoise: {fileID: 7978080647582014882}
   dropoffClip: {fileID: 8300000, guid: 159ce4a2b1605504dbb53450f6e8e68d, type: 3}
   pickupClip: {fileID: 8300000, guid: b1d12ea1063cd5746af4bc56f366f00a, type: 3}
   crashClip: {fileID: 8300000, guid: ac54500479a2ed8469288b10a004cc8f, type: 3}
+  gameSettings: {fileID: 0}
 --- !u!70 &6948767972983898814
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

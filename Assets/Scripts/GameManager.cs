@@ -60,6 +60,12 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(1);
         }
 
+        //Exits to the main menu
+        if (Input.GetKeyDown("escape"))
+        {
+            SceneManager.LoadScene(0);
+        }
+
         /*Win condition - if patients rescued is equal to the amount of soldiers in the game:
             - displays the winner text
             - disables input on the player*/ 
