@@ -83,6 +83,8 @@ public class PlayerController : MonoBehaviour
                 sfx.clip = pickupClip;
                 sfx.Play();
                 gameManager.SetHelicopterPatientsText(patientCapacity);
+                gameSettings.GetComponent<ScoreManager>().AddToScore(100);
+
             }
             //IF the player collides with a hospital reset the patient capacity
             else if (other.gameObject.tag == "Finish")
@@ -92,6 +94,7 @@ public class PlayerController : MonoBehaviour
                     sfx.clip = dropoffClip;
                     sfx.Play();
                     gameManager.SetHospitalPatientsText(patientCapacity);
+                    gameSettings.GetComponent<ScoreManager>().AddToScore(100 * patientCapacity);
                     patientCapacity = 0;
                     gameManager.SetHelicopterPatientsText(patientCapacity);
                 }

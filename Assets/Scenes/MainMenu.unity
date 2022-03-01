@@ -4121,6 +4121,8 @@ GameObject:
   - component: {fileID: 1538055489}
   - component: {fileID: 1538055492}
   - component: {fileID: 1538055491}
+  - component: {fileID: 1538055493}
+  - component: {fileID: 1538055494}
   m_Layer: 0
   m_Name: GameSettings
   m_TagString: GameSettings
@@ -4265,6 +4267,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd00c67e77628d94aab1cd4e2484cc8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1538055493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1538055488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4506f9b0b6e48f04e98f9891da20f903, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 0
+--- !u!114 &1538055494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1538055488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffe9c37bf143a7c42a43a182944e1f2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeRemaining: 0
 --- !u!1 &1971555375
 GameObject:
   m_ObjectHideFlags: 0

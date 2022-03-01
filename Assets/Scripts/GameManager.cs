@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text helicopterPatients;
     [SerializeField] private Text hospitalPatients;
     [SerializeField] private Text endText;
+    [SerializeField] private Text scoreText;
+    [SerializeField] private Text timeRemaining;
     public Button graphicSwitch;
     [SerializeField] private bool isAtariGraphics = false;
     
@@ -35,12 +37,34 @@ public class GameManager : MonoBehaviour
 
     //Sets the helicopterPatients text to match the player's patientCapacity
     public void SetHelicopterPatientsText(int patientCount){
-        helicopterPatients.text = "Soldiers in Helicopter: " + patientCount;
+        helicopterPatients.text = "x " + patientCount;
     }
     //Updates patientsRescued and sets the hospitalPatients text to match
     public void SetHospitalPatientsText(int patientCount){
         patientsRescued += patientCount;
-        hospitalPatients.text = "Soldiers in Hospital: " + patientsRescued;
+        hospitalPatients.text = "x " + patientsRescued;
+    }
+    //Updates the scoreText from Score Manager
+    public void UpdateScoreText(int currentScore)
+    {
+        scoreText.text = "" + currentScore;
+    }
+
+    public void UpdateTimeRemaining(float time)
+    {
+        timeRemaining.text = "" + Mathf.Floor(time);
+        if (time < 80.0f && time > 30.0f)
+        {
+            timeRemaining.color = Color.yellow;
+        }
+        else if (time < 30.0f && time > 0.0f)
+        {
+            timeRemaining.color = Color.red;
+        }
+        else if(time <= 0.0f)
+        {
+            timeRemaining.text = "Time Out!";
+        }
     }
 
     void Start()
