@@ -109,7 +109,7 @@ MonoBehaviour:
   helicopterNoise: {fileID: 7978080647582014882}
   dropoffClip: {fileID: 8300000, guid: 159ce4a2b1605504dbb53450f6e8e68d, type: 3}
   pickupClip: {fileID: 8300000, guid: b1d12ea1063cd5746af4bc56f366f00a, type: 3}
-  crashClip: {fileID: 8300000, guid: ac54500479a2ed8469288b10a004cc8f, type: 3}
+  crashClip: {fileID: 8300000, guid: 49f56f8518ba6074093e7e51e0e60f2b, type: 3}
   gameSettings: {fileID: 0}
 --- !u!70 &6948767972983898814
 CapsuleCollider2D:

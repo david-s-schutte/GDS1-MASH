@@ -38,10 +38,10 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         //Disable SFX if opted into on the menu
-        if (gameSettings)
+        if (!gameSettings.GetComponent<GameSettings>().GetSFXSetting())
         {
-            sfx.enabled = gameSettings.GetComponent<GameSettings>().GetSFXSetting();
-            helicopterNoise.enabled = gameSettings.GetComponent<GameSettings>().GetSFXSetting();
+            sfx.volume = 0.0f;
+            helicopterNoise.volume = 0.0f;
         }
     }
 

@@ -16,7 +16,7 @@ public class GameTimer : MonoBehaviour
         //Initialise gameplay variables
         gameStarted = false;
         gameManager = GameObject.FindWithTag("GameController");
-        timeRemaining = 120.0f;
+        timeRemaining = 60.0f;
         //Add OnSceneReload as a delegate of sceneLoaded
         SceneManager.sceneLoaded += OnSceneReload;
     }
@@ -57,7 +57,7 @@ public class GameTimer : MonoBehaviour
         {
             gameStarted = false;
             gameManager = GameObject.FindWithTag("GameController");
-            timeRemaining = 120.0f;
+            timeRemaining = 60.0f;
         }
     }
 }

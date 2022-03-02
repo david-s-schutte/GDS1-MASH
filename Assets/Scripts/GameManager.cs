@@ -56,11 +56,11 @@ public class GameManager : MonoBehaviour
         //Round text
         timeRemaining.text = "" + Mathf.Floor(time);
         //Set text colour based on given time
-        if (time < 80.0f && time > 30.0f)
+        if (time < 40.0f && time > 20.0f)
         {
             timeRemaining.color = Color.yellow;
         }
-        else if (time < 30.0f && time > 0.0f)
+        else if (time < 20.0f && time > 0.0f)
         {
             timeRemaining.color = Color.red;
         }
@@ -97,11 +97,15 @@ public class GameManager : MonoBehaviour
             {
                 currentScoreManager.playerRestart = true;
             }
+            if (GameObject.FindGameObjectWithTag("GameSettings").GetComponent<GameSettings>().GetMusicSetting())
+            {
+                GameObject.FindGameObjectWithTag("GameSettings").GetComponent<AudioSource>().enabled = true;
+            } 
             SceneManager.LoadScene(1);
         }
 
         //Exits to the main menu
-        if (Input.GetKeyDown("escape"))
+        if (Input.GetKeyDown("escape") && !player.playerIsDead)
         {
             SceneManager.LoadScene(0);
         }
@@ -111,9 +115,16 @@ public class GameManager : MonoBehaviour
             - disables input on the player*/ 
         if(patientsRescued == soldiers.Length){
             endText.enabled = true;
-            endText.text = "Round Completed!";
+            ScoreManager currentScoreManager = GameObject.FindGameObjectWithTag("GameSettings").GetComponent<ScoreManager>();
+            GameTimer currentTimer = GameObject.FindGameObjectWithTag("GameSettings").GetComponent<GameTimer>();
+            endText.text = "Round Completed! \nTime Bonus: " + Mathf.FloorToInt(currentTimer.timeRemaining) *4;
+            if (!player.playerIsDead)
+            {
+                currentScoreManager.score += (Mathf.FloorToInt(currentTimer.timeRemaining) * 4);
+            }
             player.playerIsDead = true;
             darkenGame.enabled = true;
+            
             Invoke("RestartGame", 1.0f);
             
         }
@@ -125,6 +136,7 @@ public class GameManager : MonoBehaviour
                 endText.enabled = true;
                 ScoreManager currentScoreManager = GameObject.FindGameObjectWithTag("GameSettings").GetComponent<ScoreManager>();
                 darkenGame.enabled = true;
+                GameObject.FindGameObjectWithTag("GameSettings").GetComponent<AudioSource>().enabled = false;
                 endText.text = "GAME OVER \n You Scored: " + currentScoreManager.score + "\n Press R to Restart";
                 player.GetRigidBody().gravityScale = 1.0f;
                 player.GetRigidBody().freezeRotation = false;
