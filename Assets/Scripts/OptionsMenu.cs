@@ -8,7 +8,6 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] private GameObject gameSettings;
     [SerializeField] private Button musicToggle;
     [SerializeField] private Button sfxToggle;
-    [SerializeField] private Button difficultyButton;
 
     // Start is called before the first frame update
     void Start()
@@ -36,15 +35,6 @@ public class OptionsMenu : MonoBehaviour
 
     }
 
-    public void ToggleGameDifficulty()
-    {
-        if (gameSettings)
-        {
-            gameSettings.GetComponent<GameSettings>().ToggleDifficulty();
-            UpdateText();
-        }
-    }
-
     private void UpdateText()
     {
         if (gameSettings)
@@ -66,20 +56,6 @@ public class OptionsMenu : MonoBehaviour
             else
             {
                 sfxToggle.transform.Find("Text").gameObject.GetComponent<Text>().text = "SFX: Off";
-            }
-            //Update the difficulty button
-            switch (gameSettings.GetComponent<GameSettings>().GetDifficultySetting())
-            {
-                case 0: 
-                    difficultyButton.transform.Find("Text").gameObject.GetComponent<Text>().text = "Difficulty: Easy"; 
-                    break;
-                case 1:
-                    difficultyButton.transform.Find("Text").gameObject.GetComponent<Text>().text = "Difficulty: Medium";
-                    break;
-                case 2:
-                    difficultyButton.transform.Find("Text").gameObject.GetComponent<Text>().text = "Difficulty: Hard";
-                    break;
-                default: break;
             }
         }
     }

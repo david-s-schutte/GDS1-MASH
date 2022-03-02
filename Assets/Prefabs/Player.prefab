@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be9fbad6f586e14e9cb246c63760ae3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flySpeed: 4
+  flySpeed: 6
   patientCapacity: 0
   playerIsDead: 0
   gameManager: {fileID: 0}
@@ -124,8 +124,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.06, y: -0.03}
-  m_Size: {x: 4.11, y: 2.1}
+  m_Offset: {x: 0.7706763, y: -0.030000066}
+  m_Size: {x: 3.1691296, y: 2.1000168}
   m_Direction: 1
 --- !u!50 &3637578609966795219
 Rigidbody2D:
@@ -139,11 +139,11 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.2
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0.01
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ce7209fc9e9e7e3479036879a6891855, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -283,7 +283,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 0.69971657
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0

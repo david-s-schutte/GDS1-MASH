@@ -4280,6 +4280,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 0
+  playerRestart: 0
 --- !u!114 &1538055494
 MonoBehaviour:
   m_ObjectHideFlags: 0

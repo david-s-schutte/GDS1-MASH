@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
+        //Initialise external variables
         rb = gameObject.GetComponent<Rigidbody2D>();
         gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
         renderer = gameObject.GetComponent<SpriteRenderer>();
@@ -36,6 +37,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        //Disable SFX if opted into on the menu
         if (gameSettings)
         {
             sfx.enabled = gameSettings.GetComponent<GameSettings>().GetSFXSetting();

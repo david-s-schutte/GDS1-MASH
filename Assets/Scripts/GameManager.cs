@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text endText;
     [SerializeField] private Text scoreText;
     [SerializeField] private Text timeRemaining;
+    [SerializeField] private Image darkenGame;
     public Button graphicSwitch;
     [SerializeField] private bool isAtariGraphics = false;
     
@@ -49,10 +50,12 @@ public class GameManager : MonoBehaviour
     {
         scoreText.text = "" + currentScore;
     }
-
+    //Updates the timeRemaining text from Game Timer
     public void UpdateTimeRemaining(float time)
     {
+        //Round text
         timeRemaining.text = "" + Mathf.Floor(time);
+        //Set text colour based on given time
         if (time < 80.0f && time > 30.0f)
         {
             timeRemaining.color = Color.yellow;
@@ -61,7 +64,8 @@ public class GameManager : MonoBehaviour
         {
             timeRemaining.color = Color.red;
         }
-        else if(time <= 0.0f)
+        //Change the text to a phrase if time ran out
+        if(time <= 0.0f)
         {
             timeRemaining.text = "Time Out!";
         }
@@ -75,12 +79,24 @@ public class GameManager : MonoBehaviour
         hospitals = GameObject.FindGameObjectsWithTag("Finish");
         player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         endText.enabled = false;
+        darkenGame.enabled = false;
+        //Maintain score in UI
+        ScoreManager currentScoreManager = GameObject.FindGameObjectWithTag("GameSettings").GetComponent<ScoreManager>();
+        if (currentScoreManager)
+        {
+            UpdateScoreText(currentScoreManager.score);
+        }
     }
 
     void Update()
     {
         //Allows the reset function
         if(Input.GetKeyDown("r")){
+            ScoreManager currentScoreManager = GameObject.FindGameObjectWithTag("GameSettings").GetComponent<ScoreManager>();
+            if (currentScoreManager)
+            {
+                currentScoreManager.playerRestart = true;
+            }
             SceneManager.LoadScene(1);
         }
 
@@ -95,8 +111,11 @@ public class GameManager : MonoBehaviour
             - disables input on the player*/ 
         if(patientsRescued == soldiers.Length){
             endText.enabled = true;
-            endText.text = "You Win!";
+            endText.text = "Round Completed!";
             player.playerIsDead = true;
+            darkenGame.enabled = true;
+            Invoke("RestartGame", 1.0f);
+            
         }
         /*Lose condition - if the player crashes into a tree:
             - makes sure that the player hasn't already finished the game
@@ -104,13 +123,15 @@ public class GameManager : MonoBehaviour
         else if(player.playerIsDead){
             if(!endText.enabled){
                 endText.enabled = true;
-                endText.text = "GAME OVER";
+                ScoreManager currentScoreManager = GameObject.FindGameObjectWithTag("GameSettings").GetComponent<ScoreManager>();
+                darkenGame.enabled = true;
+                endText.text = "GAME OVER \n You Scored: " + currentScoreManager.score + "\n Press R to Restart";
                 player.GetRigidBody().gravityScale = 1.0f;
                 player.GetRigidBody().freezeRotation = false;
             }
         }
     }
-
+    //Animates the graphic switch button
     public void AnimateButton()
     {
         if (graphicSwitch.GetComponent<Animator>())
@@ -119,7 +140,7 @@ public class GameManager : MonoBehaviour
         }
         
     }
-
+    //Stops animating the graphic switch button and resets it to its default sprite
     public void StopAnimateButton()
     {
         if (graphicSwitch.GetComponent<Animator>())
@@ -139,7 +160,7 @@ public class GameManager : MonoBehaviour
         {
             graphicSwitch.image.sprite = atariActiveSprite;
 
-            for(int i = 0; i < trees.Length; i++)
+            for (int i = 0; i < trees.Length; i++)
             {
                 trees[i].GetComponent<SpriteRenderer>().sprite = treeAtariSprite;
             }
@@ -149,7 +170,7 @@ public class GameManager : MonoBehaviour
                 if (soldiers[i])
                 {
                     soldiers[i].GetComponent<SpriteRenderer>().sprite = soldierAtariSprite;
-                }                
+                }
             }
 
             for (int i = 0; i < hospitals.Length; i++)
@@ -189,5 +210,10 @@ public class GameManager : MonoBehaviour
             bgTiles.SetActive(true);
 
         }
+    }
+
+    void RestartGame()
+    {
+        SceneManager.LoadScene(1);
     }
 }
